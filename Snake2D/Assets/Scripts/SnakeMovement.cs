@@ -9,10 +9,10 @@ public class SnakeMovement : MonoBehaviour
     public Vector2 direction = Vector2.right;
 
     // turning head
-    public Vector3 rightHead = new Vector3(0, 0, 0);
-    public Vector3 upHead = new Vector3(0, 0, 90);
-    public Vector3 leftHead = new Vector3(0, 0, 180);
-    public Vector3 downHead = new Vector3(0, 0, 270);
+    private Vector3 rightHead = new Vector3(0, 0, 0);
+    private Vector3 upHead = new Vector3(0, 0, 90);
+    private Vector3 leftHead = new Vector3(0, 0, 180);
+    private Vector3 downHead = new Vector3(0, 0, 270);
 
 
     private void Start()

@@ -30,5 +30,9 @@ public class Food : MonoBehaviour
         {
             RandomizePosition();
         } 
+        else if (other.tag == "Food")
+        {
+            RandomizePosition();
+        }
     }
 }

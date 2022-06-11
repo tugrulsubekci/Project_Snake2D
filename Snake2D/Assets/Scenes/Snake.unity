@@ -1203,10 +1203,6 @@ MonoBehaviour:
   segmentPrefab: {fileID: 5284600623918580108, guid: db2d16e1edfbb4f45b5d59c0185af3a5, type: 3}
   initialSize: 4
   direction: {x: 1, y: 0}
-  rightHead: {x: 0, y: 0, z: 0}
-  upHead: {x: 0, y: 0, z: 90}
-  leftHead: {x: 0, y: 0, z: 180}
-  downHead: {x: 0, y: 0, z: 270}
 --- !u!61 &2118629348
 BoxCollider2D:
   m_ObjectHideFlags: 0
