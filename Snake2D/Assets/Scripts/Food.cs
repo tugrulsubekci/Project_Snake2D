@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 public class Food : MonoBehaviour
 {
+    private BoxCollider2D gridArea;
     private void Start()
     {
-        RandomizePosition();
+        gridArea = GameObject.Find("GridArea").GetComponent<BoxCollider2D>();
     }
 
     private void Update()
@@ -13,7 +14,7 @@ public class Food : MonoBehaviour
 
     }
 
-    public BoxCollider2D gridArea;
+    
     private void RandomizePosition()
     {
         Bounds gridAreaBounds = gridArea.bounds;
@@ -28,7 +29,7 @@ public class Food : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            RandomizePosition();
+            Destroy(gameObject);
         } 
         else if (other.tag == "Food")
         {
