@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public List<Transform> foodList = new List<Transform>();
     public GameObject[] foodPrefabs;
     private BoxCollider2D gridArea;
     // Start is called before the first frame update
@@ -29,6 +30,7 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPosition = new Vector3(x, y, 0.0f);
 
         Instantiate(foodPrefabs[0], spawnPosition, foodPrefabs[0].transform.rotation);
+        foodList.Add(foodPrefabs[0].transform);
     }
 
 }

@@ -14,14 +14,12 @@ public class SnakeMovement : MonoBehaviour
     private Vector3 leftHead = new Vector3(0, 0, 180);
     private Vector3 downHead = new Vector3(0, 0, 270);
 
-
     private void Start()
     {
         ResetState();
         this.transform.localEulerAngles = rightHead; // turning head
     }
-
-    private void Update()
+    void Update()
     {
         // Snake Head Movement
         if (this.direction.x != 0.0f)
@@ -92,6 +90,7 @@ public class SnakeMovement : MonoBehaviour
         {
             Grow();
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -106,6 +105,13 @@ public class SnakeMovement : MonoBehaviour
         {
             ResetState();
             FindObjectOfType<AudioManager>().Play("GameOver");
+
+            var Foods = GameObject.FindGameObjectsWithTag("Food");
+            foreach (var food in Foods)
+            {
+                Destroy(food);
+            }
+
         }
     }
 }
