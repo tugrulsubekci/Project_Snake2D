@@ -112,6 +112,15 @@ public class SnakeMovement : MonoBehaviour
                 Destroy(food);
             }
 
+        } else if (other.CompareTag("RedFood"))
+        {
+            var Foods = GameObject.FindGameObjectsWithTag("Food");
+            foreach (var food in Foods)
+            {
+                Grow();
+                Destroy(food);
+            }
+            FindObjectOfType<AudioManager>().Play("Eating");
         }
     }
 }
