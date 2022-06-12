@@ -15,6 +15,12 @@ public class SnakeMovement : MonoBehaviour
     private Vector3 leftHead = new Vector3(0, 0, 180);
     private Vector3 downHead = new Vector3(0, 0, 270);
 
+    // Game Over Screen
+    public GameOverScreen gameOverScreen;
+
+    //game over
+    public static bool gameOver = false;
+
     private void Start()
     {
         ResetState();
@@ -83,11 +89,6 @@ public class SnakeMovement : MonoBehaviour
         this.direction = Vector2.right;
         this.transform.position = Vector3.zero;
 
-        for (int i = 1; i < _segments.Count; i++)
-        {
-            Destroy(_segments[i].gameObject);
-        }
-
         _segments.Clear();
         _segments.Add(this.transform);
 
@@ -95,7 +96,15 @@ public class SnakeMovement : MonoBehaviour
         {
             Grow();
         }
+
+        var Foods = GameObject.FindGameObjectsWithTag("Food");
+        foreach (var food in Foods)
+        {
+            Destroy(food);
+        }
+
         ScoreScript.scoreValue = 0;
+        gameOver = false;
 
     }
 
@@ -110,14 +119,10 @@ public class SnakeMovement : MonoBehaviour
 
         else if (other.tag == "Obstacle")
         {
-            ResetState();
+            
+            GameOver();
             FindObjectOfType<AudioManager>().Play("GameOver");
-
-            var Foods = GameObject.FindGameObjectsWithTag("Food");
-            foreach (var food in Foods)
-            {
-                Destroy(food);
-            }
+            Destroy(this.gameObject);
 
         } else if (other.CompareTag("RedFood"))
         {
@@ -130,5 +135,11 @@ public class SnakeMovement : MonoBehaviour
             }
             FindObjectOfType<AudioManager>().Play("Eating");
         }
+    }
+
+    public void GameOver()
+    {
+        gameOverScreen.Setup(ScoreScript.scoreValue);
+        gameOver = true;
     }
 }

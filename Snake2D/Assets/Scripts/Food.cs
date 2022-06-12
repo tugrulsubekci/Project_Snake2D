@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class Food : MonoBehaviour
 {
@@ -9,12 +8,6 @@ public class Food : MonoBehaviour
         gridArea = GameObject.Find("GridArea").GetComponent<BoxCollider2D>();
     }
 
-    private void Update()
-    {
-
-    }
-
-    
     private void RandomizePosition()
     {
         Bounds gridAreaBounds = gridArea.bounds;
