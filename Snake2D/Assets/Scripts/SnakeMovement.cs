@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class SnakeMovement : MonoBehaviour
 {
-    public List<Transform> _segments = new List<Transform>();
+    public static List<Transform> _segments = new List<Transform>();
     public Transform segmentPrefab;
-    public int initialSize = 4;
-    public Vector2 direction = Vector2.right;
+    private int initialSize = 4;
+    private Vector2 direction = Vector2.right;
+    private Vector2 input;
 
     // turning head
     private Vector3 rightHead = new Vector3(0, 0, 0);
@@ -26,12 +27,12 @@ public class SnakeMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
-                this.direction = Vector2.up;
+                this.input = Vector2.up;
                 this.transform.localEulerAngles = upHead; // turning head
             }
             else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
             {
-                this.direction = Vector2.down;
+                this.input = Vector2.down;
                 this.transform.localEulerAngles = downHead; // turning head
             }
         }
@@ -40,12 +41,12 @@ public class SnakeMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
-                this.direction = Vector2.right;
+                this.input = Vector2.right;
                 this.transform.localEulerAngles = rightHead; // turning head
             }
             else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                this.direction = Vector2.left;
+                this.input = Vector2.left;
                 this.transform.localEulerAngles = leftHead; // turning head
             }
         }
@@ -53,6 +54,10 @@ public class SnakeMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (input != Vector2.zero)
+        {
+            direction = input;
+        }
         // Snake Body positioning
         for (int i = _segments.Count - 1; i > 0; i--)
         {
@@ -90,6 +95,7 @@ public class SnakeMovement : MonoBehaviour
         {
             Grow();
         }
+        ScoreScript.scoreValue = 0;
 
     }
 
@@ -97,6 +103,7 @@ public class SnakeMovement : MonoBehaviour
     {
         if (other.tag == "Food")
         {
+            ScoreScript.scoreValue += 10;
             Grow();
             FindObjectOfType<AudioManager>().Play("Eating");
         }
@@ -117,6 +124,7 @@ public class SnakeMovement : MonoBehaviour
             var Foods = GameObject.FindGameObjectsWithTag("Food");
             foreach (var food in Foods)
             {
+                ScoreScript.scoreValue += 10;
                 Grow();
                 Destroy(food);
             }
